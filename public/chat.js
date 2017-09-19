@@ -8,11 +8,16 @@ var message = document.getElementById('message'),
     btn     = document.getElementById('send'),
     output  = document.getElementById('output');
 
-// Emit events
 
+// Emit events
 btn.addEventListener('click', function() {
     socket.emit('chat', {
         message: message.value,
         handle: handle.value
     });
+});
+
+// listen for events
+socket.on('chat', function (data) {
+    output.innerHTML += `<p><strong>${data.handle}: </strong>${data.message}</p>`;
 });
